@@ -85,9 +85,6 @@ fn schema() -> Schema {
     )
 }
 
-async fn graphiql_route() -> Result<HttpResponse, Error> {
-    graphiql_handler("/graphql", None).await
-}
 async fn playground_route() -> Result<HttpResponse, Error> {
     playground_handler("/graphql", None).await
 }
@@ -113,7 +110,6 @@ async fn main() -> std::io::Result<()> {
                     .route(web::get().to(playground_route))
                     .route(web::post().to(graphql_route)),
             )
-            .service(web::resource("/graphiql").route(web::get().to(graphiql_route)))
     });
     server.bind("127.0.0.1:4000").unwrap().run().await
 }
