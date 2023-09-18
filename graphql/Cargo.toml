@@ -8,3 +8,5 @@ edition = "2021"
 [dependencies]
 actix-web = "4.4.0"
 env_logger = "0.10.0"
+juniper = "0.15.11"
+juniper_actix = "0.4.0"
