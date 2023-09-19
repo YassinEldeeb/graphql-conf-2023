@@ -111,6 +111,7 @@ async fn main() -> std::io::Result<()> {
                     .route(web::post().to(graphql_route)),
             )
     });
-    server.bind("127.0.0.1:4000").unwrap().run().await
+    let url = "127.0.0.1:4000";
+    println!("HTTP Server is Running! Visit: http://{}", url);
+    server.bind(url).unwrap().run().await
 }
-// now go to http://127.0.0.1:4000/
