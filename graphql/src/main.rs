@@ -6,7 +6,7 @@ use actix_web::{
     App, Error, HttpResponse, HttpServer,
 };
 use juniper::{graphql_object, EmptyMutation, EmptySubscription, GraphQLObject, RootNode};
-use juniper_actix::{graphiql_handler, graphql_handler, playground_handler};
+use juniper_actix::{graphql_handler, playground_handler};
 
 #[derive(Clone, GraphQLObject)]
 pub struct User {
@@ -111,6 +111,7 @@ async fn main() -> std::io::Result<()> {
                     .route(web::post().to(graphql_route)),
             )
     });
-    server.bind("127.0.0.1:4000").unwrap().run().await
+    let url = "127.0.0.1:4000";
+    println!("HTTP Server is Running! Visit: http://{}", url);
+    server.bind(url).unwrap().run().await
 }
-// now go to http://127.0.0.1:4000/
