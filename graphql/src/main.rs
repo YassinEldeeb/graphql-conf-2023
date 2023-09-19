@@ -1,6 +1,8 @@
 use std::collections::HashMap;
 
+use actix_cors::Cors;
 use actix_web::{
+    http::header,
     middleware,
     web::{self, Data},
     App, Error, HttpResponse, HttpServer,
@@ -67,6 +69,12 @@ impl Query {
         "1.0"
     }
 
+    fn users(context: &Database) -> Vec<User> {
+        let users_list: Vec<User> = context.users.values().cloned().collect();
+
+        users_list
+    }
+
     fn user(
         context: &Database,
         #[graphql(description = "id of the user")] id: i32,
@@ -104,6 +112,15 @@ async fn main() -> std::io::Result<()> {
     let server = HttpServer::new(move || {
         App::new()
             .app_data(Data::new(schema()))
+            .wrap(
+                Cors::default()
+                    .allow_any_origin()
+                    .allowed_methods(vec!["POST", "GET"])
+                    .allowed_headers(vec![header::AUTHORIZATION, header::ACCEPT])
+                    .allowed_header(header::CONTENT_TYPE)
+                    .supports_credentials()
+                    .max_age(3600),
+            )
             .wrap(middleware::Logger::default())
             .service(
                 web::resource("/graphql")
