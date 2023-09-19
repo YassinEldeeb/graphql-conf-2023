@@ -18,7 +18,7 @@ async fn main() -> std::io::Result<()> {
         )
     });
 
-    let url = "127.0.0.1:8080";
+    let url = "127.0.0.1:4000";
     println!("HTTP Server is Running! Visit: http://{}", url);
     server.bind(url).unwrap().run().await
 }
