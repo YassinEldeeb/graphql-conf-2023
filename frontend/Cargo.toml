@@ -7,3 +7,9 @@ edition = "2021"
 
 [dependencies]
 yew = { version = "0.20", features = ["csr"] } # "csr" grabs "client-side-rendering" related code, if you're building a library, exclude it.
+serde = { version = "1.0", features = ["derive"] }
+wasm-bindgen-futures = "0.4"
+graphql_client = {version = "0.13.0", features = ["reqwest"]}
+reqwest = "0.11.20"
+wasm-logger = "0.2.0"
+log = "0.4.20"

@@ -1,0 +1,15 @@
+query GetUser($id: Int!) {
+  apiVersion
+  user(id: $id) {
+    id
+    name
+  }
+}
+
+query GetUsers {
+  apiVersion
+  users {
+    id
+    name
+  }
+}
